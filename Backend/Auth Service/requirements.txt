@@ -1,0 +1,12 @@
+asgiref
+async-timeout
+Django
+django-cors-headers
+django-redis
+djangorestframework
+djangorestframework-simplejwt
+PyJWT
+python-decouple
+pytz
+redis
+sqlparse
