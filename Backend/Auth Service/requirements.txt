@@ -10,3 +10,6 @@ python-decouple
 pytz
 redis
 sqlparse
+pika
+mysqlclient
+django-mysql
