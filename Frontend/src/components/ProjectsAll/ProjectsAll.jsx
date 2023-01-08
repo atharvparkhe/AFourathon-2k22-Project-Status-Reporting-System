@@ -194,7 +194,7 @@ const ProjectsAll = () => {
                 </Menu.Dropdown>
               </Menu>
             </Group>
-            <Box component={Link} to="project" sx={{textDecoration: "none"}}>
+            <Box component={Link} to="project" sx={{ textDecoration: "none" }}>
               <Text className={classes.projectDesc}>
                 Paper is the most basic ui component Lorem ipsum dolor sit amet.
               </Text>

@@ -7,7 +7,6 @@ import {
   Menu,
   ActionIcon,
   Box,
-  Chip,
   Badge,
   SimpleGrid,
   Button,
@@ -15,7 +14,7 @@ import {
   Stack,
   TextInput,
   Textarea,
-  MultiSelect,
+  Select,
 } from "@mantine/core";
 import { DatePicker } from "@mantine/dates";
 import {
@@ -110,10 +109,10 @@ const Modules = () => {
               rightSection={<IconCalendarEvent size={18} />}
               withAsterisk
             />
-            <MultiSelect
+            <Select
               data={data}
-              label="Mailing List"
-              placeholder="Pick teams for Mailing List"
+              label="Team"
+              placeholder="Pick a team..."
               withAsterisk
             />
             <Button
@@ -140,9 +139,9 @@ const Modules = () => {
         ]}
         my="xl"
       >
-        {CARD_DATA.map((card) => (
+        {CARD_DATA.map((card, index) => (
           <Paper
-            // key={index}
+            key={index}
             shadow="xs"
             p="md"
             className={classes.projectCard}
@@ -151,7 +150,7 @@ const Modules = () => {
               <Title size="h5" className={classes.projectTitle}>
                 {card.title}
               </Title>
-
+              {/* edit & delete buttons */}
               <Menu shadow="md">
                 <Menu.Target>
                   <ActionIcon color="dark" size="sm">
@@ -173,7 +172,9 @@ const Modules = () => {
                 </Menu.Dropdown>
               </Menu>
             </Group>
-            <Box component={Link} to="tasks" sx={{ textDecoration: "none" }}>
+
+            {/* nav link + desc */}
+            <Box component={Link} to="tasks" sx={{ textDecoration: "none" }} state={{moduleName: card.title}}>
               <Text className={classes.projectDesc}>{card.desc}</Text>
             </Box>
             <Badge radius="sm">Dev Team Delta</Badge>

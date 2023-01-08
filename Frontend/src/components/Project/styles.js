@@ -81,3 +81,28 @@ export const useModuleStyles = createStyles((theme) => ({
     },
   },
 }));
+
+export const useTaskStyles = createStyles((theme) => ({
+  taskHeader: {
+    justifyContent: "space-between",
+  },
+  headerText: {
+    color: theme.colors.gray[6],
+    fontSize: theme.fontSizes.sm,
+  },
+
+  // cards
+  taskCard: {
+    cursor: "pointer",
+    "&:hover": {
+      boxShadow: `0px 5px 7px 0px ${theme.colors.gray[3]}`,
+    },
+  },
+
+  formTaskName: {
+    "& .mantine-TextInput-input:focus": {
+      outline: `${theme.colors.gray[4]} solid 1px`,
+      outlineStyle: "dashed",
+    }
+  }
+}));

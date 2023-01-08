@@ -37,7 +37,6 @@ export const useProjectStyles = createStyles((theme) => ({
    },
 
   //  form styles
-
   formProjectName: {
     "& .mantine-TextInput-input:focus": {
       outline: `${theme.colors.gray[4]} solid 1px`,

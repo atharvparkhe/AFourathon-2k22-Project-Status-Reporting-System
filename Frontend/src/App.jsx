@@ -9,6 +9,7 @@ import { useState } from "react";
 import About from "./components/Project/About";
 import ProjectNav from "./components/Project/ProjectNav";
 import Modules from "./components/Project/Modules";
+import Tasks from "./components/Project/Tasks";
 
 const App = () => {
   const [opened, setOpened] = useState(false);
@@ -24,7 +25,10 @@ const App = () => {
         </Route>
         <Route path="/" element={<ProjectNav navOpen={opened}/>}>
           <Route path="project" element={<About/>}/>
-          <Route path="modules" element={<Modules/>}/>
+          <Route path="modules">
+            <Route index element={<Modules/>}/>
+            <Route path="tasks" element={<Tasks/>}/>
+          </Route>
         </Route>  
       </Routes>
     </>
