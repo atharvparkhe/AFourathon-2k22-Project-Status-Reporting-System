@@ -1,13 +1,14 @@
-import { useProjectStyles } from "./styles";
 import {
-  Box,
   Container,
   Paper,
-  Text,
+  Group,
   Title,
+  Text,
   Menu,
   ActionIcon,
-  Group,
+  Box,
+  Chip,
+  Badge,
   SimpleGrid,
   Button,
   Drawer,
@@ -20,32 +21,26 @@ import { DatePicker } from "@mantine/dates";
 import {
   IconDots,
   IconTrash,
-  IconFilter,
-  IconChevronDown,
+  IconEdit,
   IconPlus,
   IconCalendarEvent,
 } from "@tabler/icons";
 import { Link } from "react-router-dom";
+import { useModuleStyles } from "./styles";
 import { useState } from "react";
 
 const CARD_DATA = [
   {
-    title: "Project Kio",
+    title: "Build Site Map",
+    desc: "Create a design system for a hero section in 2 different variants. Create a simple presentation with these components.",
   },
   {
-    title: "Kyota Dashboard",
+    title: "Database Design",
+    desc: "Create a db system for a simple presentation with the components.",
   },
   {
-    title: "Chrome Release",
-  },
-  {
-    title: "Mercedes Dashboard",
-  },
-  {
-    title: "Micro App",
-  },
-  {
-    title: "Micro App",
+    title: "Hardware Specifications",
+    desc: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus, ex?",
   },
 ];
 
@@ -57,34 +52,13 @@ const data = [
   { value: "dev 3", label: "Development Team Alpha" },
 ];
 
-const ProjectsAll = () => {
-  const { classes, theme } = useProjectStyles();
+const Modules = () => {
+  const { classes, theme } = useModuleStyles();
   const [openDrawer, setOpenDrawer] = useState(false);
 
   return (
     <Container size="xl">
-      {/* action buttons -------------------------->*/}
-      <Group sx={{ width: "100%", justifyContent: "space-between" }}>
-        <Menu shadow="md" width={150}>
-          <Menu.Target>
-            <Button
-              className={classes.sortBtn}
-              variant="outline"
-              leftIcon={<IconFilter size={18} />}
-              rightIcon={<IconChevronDown size={18} />}
-              uppercase
-              color="primary"
-              radius="md"
-            >
-              Sort
-            </Button>
-          </Menu.Target>
-
-          <Menu.Dropdown>
-            <Menu.Item>Date</Menu.Item>
-            <Menu.Item>Team</Menu.Item>
-          </Menu.Dropdown>
-        </Menu>
+      <Group sx={{ width: "100%", justifyContent: "flex-end" }}>
         <Button
           className={classes.addBtn}
           leftIcon={<IconPlus size={18} />}
@@ -105,21 +79,25 @@ const ProjectsAll = () => {
         }}
         opened={openDrawer}
         onClose={() => setOpenDrawer(false)}
-        title="Add Project"
+        title="Module Details"
         padding="xl"
         size="50%"
         position="right"
       >
         <Box component="form" sx={{ padding: "0 2rem" }}>
           <TextInput
-            placeholder="Project Name"
+            placeholder="Module Name"
             variant="unstyled"
             size="xl"
             required
             className={classes.formProjectName}
           />
 
-          <Stack spacing="1.5rem">
+          <Stack spacing="2rem" my="lg">
+            <Textarea
+              placeholder="Short Description"
+              label="Short Description"
+            />
             <DatePicker
               placeholder="Start date"
               label="Start date"
@@ -132,49 +110,43 @@ const ProjectsAll = () => {
               rightSection={<IconCalendarEvent size={18} />}
               withAsterisk
             />
-            <TextInput
-              placeholder="John Doe"
-              label="Manager name"
-              withAsterisk
-            />
-            <TextInput
-              placeholder="John Doe"
-              label="Manager email"
-              type="email"
-              withAsterisk
-            />
-            <Textarea
-              placeholder="Short Description"
-              label="Short Description"
-            />
             <MultiSelect
               data={data}
               label="Mailing List"
               placeholder="Pick teams for Mailing List"
               withAsterisk
             />
+            <Button
+              sx={{
+                margin: "1rem 0",
+                backgroundColor: theme.colors.ocean[4],
+                alignSelf: "center",
+              }}
+              type="submit"
+              onClick={() => setOpenDrawer(false)}
+            >
+              Save
+            </Button>
           </Stack>
-          <Button
-            sx={{ margin: "1rem 0", backgroundColor: theme.colors.ocean[4] }}
-            type="submit"
-            onClick={() => setOpenDrawer(false)}
-          >
-            Save
-          </Button>
         </Box>
       </Drawer>
 
-      {/* project cards --------------------------->*/}
+      {/* module cards --------------------------->*/}
       <SimpleGrid
+        spacing="xl"
         breakpoints={[
           { minWidth: "sm", cols: 2 },
           { minWidth: "md", cols: 3 },
-          { minWidth: 1200, cols: 4 },
         ]}
         my="xl"
       >
-        {CARD_DATA.map((card, index) => (
-          <Paper key={index} shadow="xs" p="md" className={classes.projectCard}>
+        {CARD_DATA.map((card) => (
+          <Paper
+            // key={index}
+            shadow="xs"
+            p="md"
+            className={classes.projectCard}
+          >
             <Group className={classes.projectCardHeader}>
               <Title size="h5" className={classes.projectTitle}>
                 {card.title}
@@ -188,21 +160,27 @@ const ProjectsAll = () => {
                 </Menu.Target>
 
                 <Menu.Dropdown>
+                  <Menu.Item
+                    color="ocean"
+                    icon={<IconEdit size={14} />}
+                    onClick={() => setOpenDrawer(true)}
+                  >
+                    Edit
+                  </Menu.Item>
                   <Menu.Item color="red" icon={<IconTrash size={14} />}>
                     Delete
                   </Menu.Item>
                 </Menu.Dropdown>
               </Menu>
             </Group>
-            <Box component={Link} to="project" sx={{textDecoration: "none"}}>
-              <Text className={classes.projectDesc}>
-                Paper is the most basic ui component Lorem ipsum dolor sit amet.
-              </Text>
+            <Box component={Link} to="tasks" sx={{ textDecoration: "none" }}>
+              <Text className={classes.projectDesc}>{card.desc}</Text>
             </Box>
+            <Badge radius="sm">Dev Team Delta</Badge>
           </Paper>
         ))}
       </SimpleGrid>
     </Container>
   );
 };
-export default ProjectsAll;
+export default Modules;

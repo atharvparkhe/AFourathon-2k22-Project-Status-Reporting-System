@@ -17,11 +17,12 @@ export const useProjectStyles = createStyles((theme) => ({
   projectDesc: {
     color: theme.colors.gray[6],
     fontSize: theme.fontSizes.sm,
-    margin: "1rem 0",
+    padding: "1.5rem 0",
   },
 
   // project add form
   projectDrawer: {
+    zIndex: 10000,
     "& .mantine-Drawer-closeButton svg": {
       color: theme.colors.ocean[5],
       width: "1.5rem",

@@ -43,12 +43,41 @@ export const useProjectAboutStyles = createStyles((theme) => ({
   formStack: {
     flex: "0 1 48%",
     [theme.fn.smallerThan("md")]: {
-      flex: "0 1 100%"
+      flex: "0 1 100%",
     },
     "& label": {
       color: theme.colors.gray[6],
       fontWeight: 400,
       fontSize: theme.fontSizes.sm,
+    },
+  },
+}));
+
+export const useModuleStyles = createStyles((theme) => ({
+  projectCardHeader: {
+    justifyContent: "space-between",
+  },
+  projectDesc: {
+    color: theme.colors.gray[6],
+    padding: "1rem 0",
+    fontSize: theme.fontSizes.sm,
+  },
+
+  // drawer styles
+  projectDrawer: {
+    zIndex: 10000,
+  },
+  innerDrawer: {
+    [theme.fn.smallerThan("md")]: {
+      width: "100%",
+    },
+  },
+
+  // form styles
+  formProjectName: {
+    "& .mantine-TextInput-input:focus": {
+      outline: `${theme.colors.gray[4]} solid 1px`,
+      outlineStyle: "dashed",
     },
   },
 }));

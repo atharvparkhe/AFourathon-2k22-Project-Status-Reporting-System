@@ -8,6 +8,7 @@ import NavHeader from "./components/Nav/NavHeader";
 import { useState } from "react";
 import About from "./components/Project/About";
 import ProjectNav from "./components/Project/ProjectNav";
+import Modules from "./components/Project/Modules";
 
 const App = () => {
   const [opened, setOpened] = useState(false);
@@ -23,7 +24,8 @@ const App = () => {
         </Route>
         <Route path="/" element={<ProjectNav navOpen={opened}/>}>
           <Route path="project" element={<About/>}/>
-        </Route>
+          <Route path="modules" element={<Modules/>}/>
+        </Route>  
       </Routes>
     </>
   );
