@@ -1,7 +1,7 @@
 version: '3'
 
 services:
-  auth-service:
+  status-service:
     build:
       context: .
       dockerfile: DockerFile
@@ -10,14 +10,14 @@ services:
     volumes:
       - .:/app
 
-  auth-db:
+  status-db:
     image: mysql
     restart: always
     environment:
-      MYSQL_DATABASE: auth-service
+      MYSQL_DATABASE: status-service
       MYSQL_PASSWORD: password
       MYSQL_ROOT_PASSWORD: password
     volumes:
       - .dbdata:/var/lib/mysql
     ports:
-      - 33066:3306
+      - 3000:3306

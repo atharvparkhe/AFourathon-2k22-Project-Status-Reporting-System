@@ -57,23 +57,23 @@ WSGI_APPLICATION = 'core.wsgi.application'
 
 AUTH_USER_MODEL = 'app.BaseUser'
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db.sqlite3',
-#     }
-# }
-
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': config("MYSQL_DATABASE"),
-        'USER': config("MYSQL_USER"),
-        'PASSWORD': config("MYSQL_PASSWORD"),
-        'HOST': config("MYSQL_DATABASE_HOST"),
-        'PORT': config("MYSQL_DATABASE_PORT")
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.mysql',
+#         'NAME': config("MYSQL_DATABASE"),
+#         'USER': config("MYSQL_USER"),
+#         'PASSWORD': config("MYSQL_PASSWORD"),
+#         'HOST': config("MYSQL_DATABASE_HOST"),
+#         'PORT': config("MYSQL_DATABASE_PORT")
+#     }
+# }
 
 AUTH_PASSWORD_VALIDATORS = [
     {
