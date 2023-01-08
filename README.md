@@ -2,19 +2,19 @@
 
 ## Links
 
-### Problem Statement 📝
+**Problem Statement** 📝
 https://afourathon.com/problemstatement/5/daily-status-reporting-project
 
-### Project Report 🧾
+**Project Report** 🧾
 https://docs.google.com/document/d/1UehbSXNvI4L5p9PRF3I8Veepglec6jmJ/edit?usp=sharing&ouid=112196046383111225401&rtpof=true&sd=true
 
-### Figma Link 🎨
+**Figma Link** 🎨
 https://www.figma.com/file/EwL4XlCaSuLFfjHZxpLMVL/A4-Hackathon?node-id=0%3A1&t=KlE3UeioI6GnkagS-1UX
 
-### GitHub Link 👩‍💻
+**GitHub Link** 👩‍💻
 https://github.com/atharvparkhe/AFourathon-2k22-Project-Status-Reporting-System
 
-### API Documentation 🔗
+**API Documentation** 🔗
 https://docs.google.com/spreadsheets/d/1xvl0aCMRqsi_C7-u1o35UqCuy1LyGf0u8PQ2JqCkgf0/edit?usp=sharing
 
 ## Setting up the project on local machine
