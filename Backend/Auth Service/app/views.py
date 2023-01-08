@@ -62,8 +62,6 @@ def forgot(request):
             user_obj = MemberModel.objects.filter(email=email).first()
             if not user_obj:
                 return Response({"message": "User does not exist."}, status=status.HTTP_404_NOT_FOUND)
-            if user_obj.auth_provider != "email":
-                return Response({"message": "Login using Google Auth"}, status=status.HTTP_401_UNAUTHORIZED)
             thread_obj = Send_Forgot_OTP(email)
             thread_obj.start()
             return Response({"message":"reset mail sent"}, status=status.HTTP_200_OK)
@@ -141,8 +139,6 @@ def admin_forgot(request):
             user_obj = AdminModel.objects.filter(email=email).first()
             if not user_obj:
                 return Response({"message": "User does not exist."}, status=status.HTTP_404_NOT_FOUND)
-            if user_obj.auth_provider != "email":
-                return Response({"message": "Login using Google Auth"}, status=status.HTTP_401_UNAUTHORIZED)
             thread_obj = Send_Forgot_OTP(email)
             thread_obj.start()
             return Response({"message":"reset mail sent"}, status=status.HTTP_200_OK)
