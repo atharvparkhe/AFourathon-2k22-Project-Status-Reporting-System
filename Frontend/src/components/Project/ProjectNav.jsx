@@ -1,3 +1,4 @@
+import { IconStar } from "@tabler/icons";
 import { useState } from "react";
 import {
   AppShell,
@@ -13,6 +14,7 @@ import {
   createStyles,
   NavLink,
   Stack,
+  Divider,
 } from "@mantine/core";
 import {
   IconChevronRight,
@@ -21,7 +23,7 @@ import {
   IconUsers,
   IconHierarchy,
 } from "@tabler/icons";
-import { useNavStyles } from "./styles";
+import { useProjectNavStyles } from "./styles";
 import { Outlet, Link } from "react-router-dom";
 
 // styles
@@ -73,13 +75,13 @@ const useStyles = createStyles((theme, _params, getRef) => {
 
 // nav content
 const data = [
-  { link: "/", label: "Projects", icon: IconBrandAsana },
-  { link: "/teams", label: "Teams", icon: IconUsers },
-  { link: "/status", label: "Status", icon: IconHierarchy },
+  { link: "/", label: "Home", icon: IconBrandAsana },
+  { link: "project", label: "About", icon: IconUsers },
+  { link: "modules", label: "Modules", icon: IconHierarchy },
 ];
 
-export default function AppShellDemo({ navOpen }) {
-  const { classes, cx, theme } = useNavStyles();
+export default function ProjectNav({ navOpen }) {
+  const { classes, cx, theme } = useProjectNavStyles();
   const [active, setActive] = useState("Billing");
   const { classes: classesMain } = useStyles();
 
@@ -111,8 +113,18 @@ export default function AppShellDemo({ navOpen }) {
           width={{ sm: 200, lg: 250 }}
         >
           <Stack sx={{ justifyContent: "space-between", height: "100%" }}>
-            <Stack>{links}</Stack>
+            <Group>
+              <Avatar size={40} color="blue" radius="xl">
+                <IconStar />
+              </Avatar>
+              <Title size="h4">Kia Dashboard</Title>
+              <Divider sx={{ width: "100%" }} />
+            </Group>
 
+            {/* nav links */}
+            <Stack>{links}</Stack>
+           
+           {/* logout */}
             <Stack>
               <a
                 href="#"

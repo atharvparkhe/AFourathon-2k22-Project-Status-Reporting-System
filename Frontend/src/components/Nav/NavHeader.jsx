@@ -28,7 +28,7 @@ const NavHeader = ({navOpened, navOpen}) => {
   const { classes, cx, theme } = useNavStyles();
 
     return(
-        <Header height={{ base: 50, md: 70 }} p="md">
+        <Header height={{ base: 50, md: 70}} sx={{position: "fixed"}} p="md">
           <div
             style={{ display: "flex", alignItems: "center", height: "100%" }}
           >

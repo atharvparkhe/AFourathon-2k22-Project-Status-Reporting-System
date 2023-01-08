@@ -6,6 +6,8 @@ import Team from "./pages/Team";
 import Status from "./pages/Status";
 import NavHeader from "./components/Nav/NavHeader";
 import { useState } from "react";
+import About from "./components/Project/About";
+import ProjectNav from "./components/Project/ProjectNav";
 
 const App = () => {
   const [opened, setOpened] = useState(false);
@@ -18,6 +20,9 @@ const App = () => {
           <Route path="/" element={<Projects />} />
           <Route path="/teams" element={<Team />} />
           <Route path="/status" element={<Status />} />
+        </Route>
+        <Route path="/" element={<ProjectNav navOpen={opened}/>}>
+          <Route path="project" element={<About/>}/>
         </Route>
       </Routes>
     </>

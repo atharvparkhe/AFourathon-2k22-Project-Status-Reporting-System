@@ -17,6 +17,30 @@ export const useProjectStyles = createStyles((theme) => ({
   projectDesc: {
     color: theme.colors.gray[6],
     fontSize: theme.fontSizes.sm,
-    margin: "1rem 0"
+    margin: "1rem 0",
   },
+
+  // project add form
+  projectDrawer: {
+    "& .mantine-Drawer-closeButton svg": {
+      color: theme.colors.ocean[5],
+      width: "1.5rem",
+      height: "1.5rem",
+    },
+  },
+
+  innerDrawer: {
+    [theme.fn.smallerThan("md")]: {
+      width: "100%",
+    },
+   },
+
+  //  form styles
+
+  formProjectName: {
+    "& .mantine-TextInput-input:focus": {
+      outline: `${theme.colors.gray[4]} solid 1px`,
+      outlineStyle: "dashed",
+    }
+  }
 }));
