@@ -6,7 +6,7 @@ export const useTeamStyles = createStyles((theme) => ({
     justifyContent: "space-between",
   },
 
-  cardLink: {
+  cardLink: {   
     textDecoration: "none",
     color: theme.colors.dark[8],
     "&:hover": {

@@ -157,7 +157,7 @@ const ProjectsAll = () => {
                 </Menu.Dropdown>
               </Menu>
             </Group>
-            <Box component={Link} to="project" sx={{ textDecoration: "none" }}>
+            <Box component={Link} to="project/about" sx={{ textDecoration: "none" }}>
               <Text className={classes.projectDesc}>{card.desc}</Text>
             </Box>
           </Paper>

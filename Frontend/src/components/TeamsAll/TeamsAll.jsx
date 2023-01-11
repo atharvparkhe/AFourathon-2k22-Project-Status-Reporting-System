@@ -94,7 +94,7 @@ const TeamsAll = () => {
               <Group>
                 <img src={teamLogo} alt="" />
                 <Title size="h5" className={classes.projectTitle}>
-                  <Link className={classes.cardLink}>{card.title}</Link>
+                  <Link className={classes.cardLink} to="team/details">{card.title}</Link>
                 </Title>
               </Group>
               <Menu shadow="md">

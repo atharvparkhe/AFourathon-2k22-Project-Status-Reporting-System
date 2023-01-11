@@ -4,7 +4,6 @@ import {
   TextInput,
   Textarea,
   Button,
-  Drawer,
   LoadingOverlay,
 } from "@mantine/core";
 import { useTeamStyles } from "./styles";
@@ -15,7 +14,7 @@ import { useEffect } from "react";
 import { useForm, isNotEmpty } from "@mantine/form";
 import { useState } from "react";
 
-const TeamForm = ({ openForm, closeDrawer, formDetails }) => {
+const TeamDetail = () => {
   const { classes, theme, cx } = useTeamStyles();
   const [loading, setLoading] = useState(false);
 
@@ -38,44 +37,13 @@ const TeamForm = ({ openForm, closeDrawer, formDetails }) => {
     },
   });
 
-  // if form is edit mode, fetch initial values -------->
-  useEffect(() => {
-    // setLoading(true);
-
-    if (formDetails.projectId !== null && formDetails.type === "edit")
-      console.log("form edit type");
-    // fetch form data
-    //   set default values
-    /**
-       * form.setValues({
-          teamName: "",
-          startDate: '',
-          endDate: '',
-          leadName: "",
-          leadEmail: "",
-          desc: "",
-        })
-       */
-  }, []);
-
   const handleSubmit = (values) => {
     console.log(values);
     // post data
   };
 
   return (
-    <Drawer
-      classNames={{
-        root: classes.teamDrawer,
-        drawer: classes.innerDrawer,
-      }}
-      opened={openForm}
-      onClose={closeDrawer}
-      title="Add Team Details"
-      padding="xl"
-      size="50%"
-      position="right"
-    >
+    <>
       {loading ? (
         <LoadingOverlay visible={true} overlayBlur={2} />
       ) : (
@@ -122,13 +90,13 @@ const TeamForm = ({ openForm, closeDrawer, formDetails }) => {
                 .toDate()}
               {...form.getInputProps("endDate")}
             />
+            {/* lead details */}
             <TextInput
               placeholder="John Doe"
               label="Team Lead name"
               withAsterisk
               {...form.getInputProps("leadName")}
             />
-            {/* manager email */}
             <TextInput
               placeholder="John Doe"
               label="Team Lead email"
@@ -146,7 +114,7 @@ const TeamForm = ({ openForm, closeDrawer, formDetails }) => {
         </Box>
         // form ends ==========================>
       )}
-    </Drawer>
+    </>
   );
 };
-export default TeamForm;
+export default TeamDetail;
