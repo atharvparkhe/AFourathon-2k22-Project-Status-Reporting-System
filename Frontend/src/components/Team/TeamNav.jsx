@@ -73,6 +73,7 @@ const data = [
   { link: "/", label: "Home", icon: IconBrandAsana },
   { link: "details", label: "Details", icon: IconHierarchy },
   { link: "members", label: "Members", icon: IconUsers },
+  { link: "upload", label: "Upload Members", icon: IconUsers },
 ];
 
 export default function TeamNav({ navOpen }) {

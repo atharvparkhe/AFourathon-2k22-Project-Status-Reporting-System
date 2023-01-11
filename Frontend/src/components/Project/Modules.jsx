@@ -27,33 +27,35 @@ import {
 import { Link } from "react-router-dom";
 import { useModuleStyles } from "./styles";
 import { useState } from "react";
+import ModuleForm from "./ModuleForm";
 
 const CARD_DATA = [
   {
+    id: 11,
     title: "Build Site Map",
     desc: "Create a design system for a hero section in 2 different variants. Create a simple presentation with these components.",
   },
   {
+    id: 12,
     title: "Database Design",
     desc: "Create a db system for a simple presentation with the components.",
   },
   {
+    id: 13,
     title: "Hardware Specifications",
     desc: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus, ex?",
   },
 ];
 
-const data = [
-  { value: "hr team", label: "HR Team" },
-  { value: "ui/ux team", label: "UI/UX Team" },
-  { value: "dev 1", label: "Development Team Delta" },
-  { value: "dev 2", label: "Development Team Beta" },
-  { value: "dev 3", label: "Development Team Alpha" },
-];
-
 const Modules = () => {
   const { classes, theme } = useModuleStyles();
   const [openDrawer, setOpenDrawer] = useState(false);
+  const [formType, setFormType] = useState({ type: null, moduleId: null });
+
+  const moduleDetailsHandler = (formState, module = null) => {
+    setFormType((prev) => ({ ...prev, type: formState, moduleId: module }));
+    setOpenDrawer(true);
+  };
 
   return (
     <Container size="xl">
@@ -64,71 +66,20 @@ const Modules = () => {
           uppercase
           radius="md"
           sx={{ backgroundColor: theme.colors.ocean[4] }}
-          onClick={() => setOpenDrawer(true)}
+          onClick={() => moduleDetailsHandler("add")}
         >
           Add
         </Button>
       </Group>
 
       {/* add project form ------------------------> */}
-      <Drawer
-        classNames={{
-          root: classes.projectDrawer,
-          drawer: classes.innerDrawer,
-        }}
-        opened={openDrawer}
-        onClose={() => setOpenDrawer(false)}
-        title="Module Details"
-        padding="xl"
-        size="50%"
-        position="right"
-      >
-        <Box component="form" sx={{ padding: "0 2rem" }}>
-          <TextInput
-            placeholder="Module Name"
-            variant="unstyled"
-            size="xl"
-            required
-            className={classes.formProjectName}
-          />
-
-          <Stack spacing="2rem" my="lg">
-            <Textarea
-              placeholder="Short Description"
-              label="Short Description"
-            />
-            <DatePicker
-              placeholder="Start date"
-              label="Start date"
-              rightSection={<IconCalendarEvent size={18} />}
-              withAsterisk
-            />
-            <DatePicker
-              placeholder="End date"
-              label="End date"
-              rightSection={<IconCalendarEvent size={18} />}
-              withAsterisk
-            />
-            <Select
-              data={data}
-              label="Team"
-              placeholder="Pick a team..."
-              withAsterisk
-            />
-            <Button
-              sx={{
-                margin: "1rem 0",
-                backgroundColor: theme.colors.ocean[4],
-                alignSelf: "center",
-              }}
-              type="submit"
-              onClick={() => setOpenDrawer(false)}
-            >
-              Save
-            </Button>
-          </Stack>
-        </Box>
-      </Drawer>
+      {openDrawer && (
+        <ModuleForm
+          openForm={openDrawer}
+          closeDrawer={() => setOpenDrawer(false)}
+          formDetails={formType}
+        />
+      )}
 
       {/* module cards --------------------------->*/}
       <SimpleGrid
@@ -140,12 +91,7 @@ const Modules = () => {
         my="xl"
       >
         {CARD_DATA.map((card, index) => (
-          <Paper
-            key={index}
-            shadow="xs"
-            p="md"
-            className={classes.projectCard}
-          >
+          <Paper key={index} shadow="xs" p="md" className={classes.projectCard}>
             <Group className={classes.projectCardHeader}>
               <Title size="h5" className={classes.projectTitle}>
                 {card.title}
@@ -162,7 +108,7 @@ const Modules = () => {
                   <Menu.Item
                     color="ocean"
                     icon={<IconEdit size={14} />}
-                    onClick={() => setOpenDrawer(true)}
+                    onClick={() => moduleDetailsHandler("edit", card.id)}
                   >
                     Edit
                   </Menu.Item>
@@ -174,7 +120,12 @@ const Modules = () => {
             </Group>
 
             {/* nav link + desc */}
-            <Box component={Link} to="tasks" sx={{ textDecoration: "none" }} state={{moduleName: card.title}}>
+            <Box
+              component={Link}
+              to="tasks"
+              sx={{ textDecoration: "none" }}
+              state={{ moduleName: card.title }}
+            >
               <Text className={classes.projectDesc}>{card.desc}</Text>
             </Box>
             <Badge radius="sm">Dev Team Delta</Badge>
