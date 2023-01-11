@@ -12,6 +12,7 @@ class BaseModel(models.Model):
 
 class ProjectModel(BaseModel):
     project_name = models.CharField(max_length=50)
+    project_desc = models.TextField()
     project_start_date = models.DateField(auto_now=False, auto_now_add=False)
     project_end_date = models.DateField(auto_now=False, auto_now_add=False)
     project_manager_id = models.CharField(max_length=50)
