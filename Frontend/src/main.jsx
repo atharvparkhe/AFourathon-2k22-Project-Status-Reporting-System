@@ -12,11 +12,14 @@ import { store, persistor } from './store/store.js';
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
+    <Provider store={store}>
+      <PersistGate loading={null} persistor={persistor}>
         <BrowserRouter>
           <MantineProvider withGlobalStyles withNormalizeCSS theme={theme}>
             <App />
           </MantineProvider>
         </BrowserRouter>
+        </PersistGate></Provider>
   </React.StrictMode>
 
 );

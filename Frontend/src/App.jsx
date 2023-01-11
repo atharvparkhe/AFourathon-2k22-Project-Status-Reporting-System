@@ -14,18 +14,29 @@ import TeamsAll from "./components/TeamsAll/TeamsAll";
 import TeamNav from "./components/Team/TeamNav";
 import TeamDetail from "./components/Team/TeamDetail";
 import TeamMembers from "./components/Team/TeamMembers";
+import LoginPage from "./pages/LoginPage";
+import { useEffect } from "react";
 
 const App = () => {
   const [opened, setOpened] = useState(false);
+  useEffect(() => {
+  
+    return () => {
+      
+    }
+  }, [])
+  
 
   return (
     <>
       <NavHeader navOpened={setOpened} navOpen={opened}/>
       <Routes>
+      <Route path="/login" element={<LoginPage />} />
         <Route element={<AppShellDemo navOpen={opened}/>}>
           <Route path="/" element={<Projects />} />
           <Route path="/teams" element={<Team />} />
           <Route path="/status" element={<Status />} />
+          
         </Route>
         <Route path="/project" element={<ProjectNav navOpen={opened}/>}>
           <Route path="about" element={<About/>}/>

@@ -5,10 +5,23 @@ const initialState = {
 };
 
 export default function auth(state = initialState, action) {
+    
+      
     switch (action.type) {
         case LOGIN_SUCCESS:
-            return { ...state, token: action.payload.token };
+            localStorage.setItem('token', action.payload.token.token);
+            return {
+                ...state,
+                token: action.payload.token.token,
+                loading: false,
+                isAuthenticated: true,
+                email: action.payload.email
+            }
+
         case LOGOUT_SUCCESS:
+            localStorage.removeItem('token');
+            localStorage.removeItem('user');
+
             return { ...initialState };
         case INVALID_TOKEN:
             return { ...initialState };
