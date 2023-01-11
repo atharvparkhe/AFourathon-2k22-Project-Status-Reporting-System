@@ -21,36 +21,31 @@ import MemberUpload from "./components/Team/MemberUpload";
 const App = () => {
   const [opened, setOpened] = useState(false);
   useEffect(() => {
-  
-    return () => {
-      
-    }
-  }, [])
-  
+    return () => {};
+  }, []);
 
   return (
     <>
-      <NavHeader navOpened={setOpened} navOpen={opened}/>
+      <NavHeader navOpened={setOpened} navOpen={opened} />
       <Routes>
-      <Route path="/login" element={<LoginPage />} />
-        <Route element={<AppShellDemo navOpen={opened}/>}>
+        <Route path="/login" element={<LoginPage />} />
+        <Route element={<AppShellDemo navOpen={opened} />}>
           <Route path="/" element={<Projects />} />
           <Route path="/teams" element={<Team />} />
           <Route path="/status" element={<Status />} />
-          
         </Route>
-        <Route path="/project" element={<ProjectNav navOpen={opened}/>}>
-          <Route path="about" element={<About/>}/>
+        <Route path="/project" element={<ProjectNav navOpen={opened} />}>
+          <Route path="about" element={<About />} />
           <Route path="modules">
-            <Route index element={<Modules/>}/>
-            <Route path="tasks" element={<Tasks/>}/>
+            <Route index element={<Modules />} />
+            <Route path="tasks" element={<Tasks />} />
           </Route>
-        </Route>  
-        <Route path="/teams/team" element={<TeamNav navOpen={opened}/>}>
-          <Route path="details" element={<TeamDetail/>}/>
-          <Route path="members" element={<TeamMembers/>}/>
-          <Route path="upload" element={<MemberUpload/>}/>
-        </Route>  
+        </Route>
+        <Route path="/teams/team" element={<TeamNav navOpen={opened} />}>
+          <Route path="details" element={<TeamDetail />} />
+          <Route path="members" element={<TeamMembers />} />
+          <Route path="upload" element={<MemberUpload />} />
+        </Route>
       </Routes>
     </>
   );
