@@ -138,25 +138,20 @@ const Tasks = () => {
             required
             className={classes.formTaskName}
           />
-          <Badge radius="sm" my="sm">
-            {" "}
-            Task #1222
-          </Badge>
-          <Select
-            data={status}
-            label="Status"
-            placeholder="Status of task.."
-            withAsterisk
-          />
+          <Stack spacing="md">
+            <TextInput placeholder="Ticket Number" label="Task ID" required />
+            <Select
+              data={status}
+              label="Status"
+              placeholder="Status of task.."
+              withAsterisk
+            />
 
-          <Stack spacing="2rem" my="lg">
             <Textarea
               placeholder="Short Description"
               label="Short Description"
             />
             <Textarea placeholder="Activity" label="Add Activity" minRows={1} />
-          </Stack>
-          <Stack>
             <Select
               data={data}
               label="Assignee"
@@ -169,17 +164,30 @@ const Tasks = () => {
               disabled
               required
             />
+            <Group sx={{justifyContent: "center"}}>
+              <Button
+                my="sm"
+                type="submit"
+                onClick={(e) => {
+                  e.preventDefault();
+                  setModalOpen(false);
+                }}
+              >
+                SAVE
+              </Button>
+              <Button
+                my="sm"
+                type="button"
+                onClick={(e) => {
+                  e.preventDefault();
+                  setModalOpen(false);
+                }}
+                color="red"
+              >
+                DELETE
+              </Button>
+            </Group>
           </Stack>
-          <Button
-            my="sm"
-            type="submit"
-            onClick={(e) => {
-              e.preventDefault();
-              setModalOpen(false);
-            }}
-          >
-            SAVE
-          </Button>
         </Box>
       </Modal>
     </Container>

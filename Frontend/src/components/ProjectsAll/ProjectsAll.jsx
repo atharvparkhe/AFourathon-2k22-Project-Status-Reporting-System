@@ -10,56 +10,63 @@ import {
   Group,
   SimpleGrid,
   Button,
-  Drawer,
-  Stack,
-  TextInput,
-  Textarea,
-  MultiSelect,
 } from "@mantine/core";
-import { DatePicker } from "@mantine/dates";
 import {
   IconDots,
   IconTrash,
   IconFilter,
   IconChevronDown,
   IconPlus,
-  IconCalendarEvent,
+  IconEdit,
 } from "@tabler/icons";
 import { Link } from "react-router-dom";
 import { useState } from "react";
+import ProjectForm from "./ProjectForm";
 
 const CARD_DATA = [
   {
+    id: 11,
     title: "Project Kio",
+    desc: "Paper is the most basic ui component Lorem ipsum dolor sit amet.",
   },
   {
+    id: 12,
     title: "Kyota Dashboard",
+    desc: "Paper is the most basic ui component Lorem ipsum dolor sit amet.",
   },
   {
+    id: 13,
     title: "Chrome Release",
+    desc: "Paper is the most basic ui component Lorem ipsum dolor sit amet.",
   },
   {
+    id: 14,
     title: "Mercedes Dashboard",
+    desc: "Paper is the most basic ui component Lorem ipsum dolor sit amet.",
   },
   {
+    id: 15,
     title: "Micro App",
+    desc: "Paper is the most basic ui component Lorem ipsum dolor sit amet.",
   },
   {
+    id: 16,
     title: "Micro App",
+    desc: "Paper is the most basic ui component Lorem ipsum dolor sit amet.",
   },
-];
-
-const data = [
-  { value: "hr team", label: "HR Team" },
-  { value: "ui/ux team", label: "UI/UX Team" },
-  { value: "dev 1", label: "Development Team Delta" },
-  { value: "dev 2", label: "Development Team Beta" },
-  { value: "dev 3", label: "Development Team Alpha" },
 ];
 
 const ProjectsAll = () => {
   const { classes, theme } = useProjectStyles();
   const [openDrawer, setOpenDrawer] = useState(false);
+  const [formType, setFormType] = useState({ type: null, projectId: null });
+  const projectDetailsHandler = (formState, projectId = null) => {
+    // fetch form data if action == 'edit'
+    setFormType((prev) => {
+      return { ...prev, type: formState, projectId: projectId };
+    });
+    setOpenDrawer(true);
+  };
 
   return (
     <Container size="xl">
@@ -91,78 +98,20 @@ const ProjectsAll = () => {
           uppercase
           radius="md"
           sx={{ backgroundColor: theme.colors.ocean[4] }}
-          onClick={() => setOpenDrawer(true)}
+          onClick={() => projectDetailsHandler("add")}
         >
           Add
         </Button>
       </Group>
 
       {/* add project form ------------------------> */}
-      <Drawer
-        classNames={{
-          root: classes.projectDrawer,
-          drawer: classes.innerDrawer,
-        }}
-        opened={openDrawer}
-        onClose={() => setOpenDrawer(false)}
-        title="Add Project"
-        padding="xl"
-        size="50%"
-        position="right"
-      >
-        <Box component="form" sx={{ padding: "0 2rem" }}>
-          <TextInput
-            placeholder="Project Name"
-            variant="unstyled"
-            size="xl"
-            required
-            className={classes.formProjectName}
-          />
-
-          <Stack spacing="1.5rem">
-            <DatePicker
-              placeholder="Start date"
-              label="Start date"
-              rightSection={<IconCalendarEvent size={18} />}
-              withAsterisk
-            />
-            <DatePicker
-              placeholder="End date"
-              label="End date"
-              rightSection={<IconCalendarEvent size={18} />}
-              withAsterisk
-            />
-            <TextInput
-              placeholder="John Doe"
-              label="Manager name"
-              withAsterisk
-            />
-            <TextInput
-              placeholder="John Doe"
-              label="Manager email"
-              type="email"
-              withAsterisk
-            />
-            <Textarea
-              placeholder="Short Description"
-              label="Short Description"
-            />
-            <MultiSelect
-              data={data}
-              label="Mailing List"
-              placeholder="Pick teams for Mailing List"
-              withAsterisk
-            />
-          </Stack>
-          <Button
-            sx={{ margin: "1rem 0", backgroundColor: theme.colors.ocean[4] }}
-            type="submit"
-            onClick={() => setOpenDrawer(false)}
-          >
-            Save
-          </Button>
-        </Box>
-      </Drawer>
+      {openDrawer && (
+         <ProjectForm
+          openForm={openDrawer}
+          closeDrawer={() => setOpenDrawer(false)}
+          formDetails={formType}
+        />
+      )}
 
       {/* project cards --------------------------->*/}
       <SimpleGrid
@@ -174,7 +123,13 @@ const ProjectsAll = () => {
         my="xl"
       >
         {CARD_DATA.map((card, index) => (
-          <Paper key={index} shadow="xs" p="md" className={classes.projectCard}>
+          <Paper
+            key={index}
+            id={card.id}
+            shadow="xs"
+            p="md"
+            className={classes.projectCard}
+          >
             <Group className={classes.projectCardHeader}>
               <Title size="h5" className={classes.projectTitle}>
                 {card.title}
@@ -188,6 +143,13 @@ const ProjectsAll = () => {
                 </Menu.Target>
 
                 <Menu.Dropdown>
+                  <Menu.Item
+                    color="ocean"
+                    icon={<IconEdit size={14} />}
+                    onClick={() => projectDetailsHandler("edit", card.id)}
+                  >
+                    Edit
+                  </Menu.Item>
                   <Menu.Item color="red" icon={<IconTrash size={14} />}>
                     Delete
                   </Menu.Item>
@@ -195,9 +157,7 @@ const ProjectsAll = () => {
               </Menu>
             </Group>
             <Box component={Link} to="project" sx={{ textDecoration: "none" }}>
-              <Text className={classes.projectDesc}>
-                Paper is the most basic ui component Lorem ipsum dolor sit amet.
-              </Text>
+              <Text className={classes.projectDesc}>{card.desc}</Text>
             </Box>
           </Paper>
         ))}
