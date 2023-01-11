@@ -44,7 +44,12 @@
     npm install 
     ```
 
-4. Run the project
+4. Make .env file
+    ```
+    REACT_APP_BASE_URL=localhost
+    ``
+
+5. Run the project
     ```
     npm run dev
     ```
