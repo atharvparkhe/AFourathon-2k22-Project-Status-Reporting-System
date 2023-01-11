@@ -7,7 +7,8 @@ from rest_framework import status
 from .serializers import *
 from .threads import *
 from .models import *
-
+from .utils import *
+import xlrd
 
 
 @api_view(["POST"])
@@ -161,6 +162,56 @@ def admin_reset(request):
             user_obj.set_password(ser.data["pw"])
             user_obj.save()
             return Response({"message":"Password changed successfull"}, status=status.HTTP_202_ACCEPTED)
+        return Response({"error":ser.errors}, status=status.HTTP_400_BAD_REQUEST)
+    except Exception as e:
+        return Response({"error":str(e), "message":"Something went wrong"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+
+# add employee data
+@api_view(["POST"])
+def add_employee_data(request):
+    try:
+        ser = FileModelSerializer(data=request.data)
+        if ser.is_valid():
+            file_obj = ser.save()
+            path = str(file_obj.file.path)
+            workbook = xlrd.open_workbook(path)
+            sheet = workbook.sheet_by_index(0)
+            for row in range(1,sheet.nrows):
+                name = str(sheet.cell_value(row,0))
+                email = str(sheet.cell_value(row,1)).lower()
+                org = MemberModel.objects.create(
+                    name = name,
+                    email = email,
+                    phone = sheet.cell_value(row,2)
+                )
+                pw = get_random_string(8)
+                org.set_password(pw)
+                thread_obj = send_credentials_mail(email, pw)
+                thread_obj.start()
+                org.save()
+                return Response({"message": "Employees Added Successfully"}, status=status.HTTP_200_OK)
+        return Response({"error":ser.errors}, status=status.HTTP_400_BAD_REQUEST)
+    except Exception as e:
+        return Response({"error":str(e), "message":"Something went wrong"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+@api_view(["POST"])
+def add_employee(request):
+    try:
+        ser = add_employee_serializer(data=request.data)
+        if ser.is_valid():
+            email = ser.data["email"],
+            org = MemberModel.objects.create(
+                name = ser.data["name"],
+                email = email,
+                phone = ser.data["phone"]
+            )
+            pw = get_random_string(8)
+            org.set_password(pw)
+            thread_obj = send_credentials_mail(email, pw)
+            thread_obj.start()
+            org.save()
+            return Response({"message": "Employee Added Successfully"}, status=status.HTTP_200_OK)
         return Response({"error":ser.errors}, status=status.HTTP_400_BAD_REQUEST)
     except Exception as e:
         return Response({"error":str(e), "message":"Something went wrong"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
