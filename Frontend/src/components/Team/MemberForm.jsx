@@ -19,7 +19,6 @@ const MemberForm = ({ isOpen, closeModal, formDetails }) => {
   const form = useForm({
     initialValues: {
       memberName: "",
-      desc: "",
       memberEmail: "",
       contact: "",
     },
@@ -42,7 +41,6 @@ const MemberForm = ({ isOpen, closeModal, formDetails }) => {
        * form.setValues({
           initialValues: {
               memberName: "",
-                desc: "",
                 memberEmail: "",
                 contact: "",
           },
@@ -76,13 +74,6 @@ const MemberForm = ({ isOpen, closeModal, formDetails }) => {
           {...form.getInputProps("memberName")}
         />
         <Stack spacing="md">
-          {/* desc */}
-          <Textarea
-            placeholder="Short Description"
-            label="Short Description"
-            {...form.getInputProps("desc")}
-          />
-          {/* <Textarea placeholder="Activity" label="Add Activity" minRows={1} /> */}
           <TextInput
             placeholder="John Doe"
             label="Team Lead email"

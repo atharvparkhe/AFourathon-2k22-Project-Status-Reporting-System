@@ -14,6 +14,7 @@ import TeamsAll from "./components/TeamsAll/TeamsAll";
 import TeamNav from "./components/Team/TeamNav";
 import TeamDetail from "./components/Team/TeamDetail";
 import TeamMembers from "./components/Team/TeamMembers";
+import MemberUpload from "./components/Team/MemberUpload";
 
 const App = () => {
   const [opened, setOpened] = useState(false);
@@ -37,6 +38,7 @@ const App = () => {
         <Route path="/teams/team" element={<TeamNav navOpen={opened}/>}>
           <Route path="details" element={<TeamDetail/>}/>
           <Route path="members" element={<TeamMembers/>}/>
+          <Route path="upload" element={<MemberUpload/>}/>
         </Route>  
       </Routes>
     </>
