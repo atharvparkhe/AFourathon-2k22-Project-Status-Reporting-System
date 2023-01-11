@@ -8,17 +8,12 @@ import {
   Text,
   Avatar,
   Badge,
-  Modal,
-  TextInput,
-  Box,
-  Stack,
-  Textarea,
-  Select,
 } from "@mantine/core";
 import { useLocation } from "react-router-dom";
 import { IconPlus, IconCalendarEvent, IconCheckbox } from "@tabler/icons";
 import { useTaskStyles } from "./styles";
 import { useState } from "react";
+import TaskForm from "./TaskForm";
 
 const TASKS = [
   {
@@ -33,31 +28,24 @@ const TASKS = [
   { task: "Mobile Map", ticket: 1121, status: "complete", color: "lime" },
 ];
 
-const data = [
-  { value: "John Doe", label: "John Doe" },
-  { value: "Raj Kumar", label: "Raj Kumar" },
-  { value: "Mary Poppings", label: "Mary Poppings" },
-  { value: "Jane Eyre", label: "Jane Eyre" },
-];
-
-const status = [
-  "complete",
-  "in progress",
-  "in review",
-  "pto",
-  "to do",
-  "blocked",
-];
-
+// COMPONENT ==================================================>
 const Tasks = () => {
   const { state } = useLocation();
   const { classes, theme } = useTaskStyles();
   const [modalOpen, setModalOpen] = useState(false);
+  const [formType, setFormType] = useState({ type: null, ticket: null });
 
   const completeCount = TASKS.reduce((acc, val) => {
     if (val.status === "complete") acc = acc + 1;
     return acc;
   }, 0);
+
+  const taskClickHandler = (formState, ticketId = null) => {
+    setFormType((prev) => {
+      return { ...prev, type: formState, ticket: ticketId };
+    });
+    setModalOpen(true);
+  };
 
   return (
     <Container size="xl">
@@ -83,7 +71,7 @@ const Tasks = () => {
           leftIcon={<IconPlus size={18} />}
           uppercase
           radius="md"
-          onClick={() => setModalOpen(true)}
+          onClick={() => taskClickHandler("add")}
           sx={{ backgroundColor: theme.colors.ocean[4] }}
         >
           Add
@@ -98,12 +86,13 @@ const Tasks = () => {
       >
         {TASKS.map((task, index) => (
           <Paper
+            id={task.ticket}
             key={index}
             shadow="xs"
             radius="md"
             p="md"
             className={classes.taskCard}
-            onClick={() => setModalOpen(true)}
+            onClick={() => taskClickHandler("edit", task.ticket)}
           >
             <Group sx={{ justifyContent: "space-between" }}>
               <Text className={classes.taskName}>{task.task}</Text>
@@ -122,74 +111,7 @@ const Tasks = () => {
       </SimpleGrid>
 
       {/* modal */}
-      <Modal
-        centered
-        opened={modalOpen}
-        onClose={() => setModalOpen(false)}
-        title="Task Details"
-        size="lg"
-        sx={{ zIndex: 10000 }}
-      >
-        <Box component="form">
-          <TextInput
-            placeholder="Task Name"
-            variant="unstyled"
-            size="xl"
-            required
-            className={classes.formTaskName}
-          />
-          <Stack spacing="md">
-            <TextInput placeholder="Ticket Number" label="Task ID" required />
-            <Select
-              data={status}
-              label="Status"
-              placeholder="Status of task.."
-              withAsterisk
-            />
-
-            <Textarea
-              placeholder="Short Description"
-              label="Short Description"
-            />
-            <Textarea placeholder="Activity" label="Add Activity" minRows={1} />
-            <Select
-              data={data}
-              label="Assignee"
-              placeholder="Pick a team member.."
-              withAsterisk
-            />
-            <TextInput
-              placeholder="Hours Spent"
-              label="Hours Spent"
-              disabled
-              required
-            />
-            <Group sx={{justifyContent: "center"}}>
-              <Button
-                my="sm"
-                type="submit"
-                onClick={(e) => {
-                  e.preventDefault();
-                  setModalOpen(false);
-                }}
-              >
-                SAVE
-              </Button>
-              <Button
-                my="sm"
-                type="button"
-                onClick={(e) => {
-                  e.preventDefault();
-                  setModalOpen(false);
-                }}
-                color="red"
-              >
-                DELETE
-              </Button>
-            </Group>
-          </Stack>
-        </Box>
-      </Modal>
+      {modalOpen && <TaskForm isOpen={modalOpen} closeModal={() => setModalOpen(false)} formDetails={formType} />}
     </Container>
   );
 };

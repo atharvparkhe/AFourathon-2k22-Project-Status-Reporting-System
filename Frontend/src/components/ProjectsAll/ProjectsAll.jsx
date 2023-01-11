@@ -60,6 +60,7 @@ const ProjectsAll = () => {
   const { classes, theme } = useProjectStyles();
   const [openDrawer, setOpenDrawer] = useState(false);
   const [formType, setFormType] = useState({ type: null, projectId: null });
+  
   const projectDetailsHandler = (formState, projectId = null) => {
     // fetch form data if action == 'edit'
     setFormType((prev) => {
