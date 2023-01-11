@@ -23,9 +23,14 @@ import {
 } from "@tabler/icons";
 import { useNavStyles } from "./styles";
 import { Outlet, Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const NavHeader = ({navOpened, navOpen}) => {
   const { classes, cx, theme } = useNavStyles();
+  const auth = useSelector(state => state.auth);
+  const state = useSelector(state => state);
+  console.log(state);
+  
 
     return(
         <Header height={{ base: 50, md: 70}} sx={{position: "fixed"}} p="md">
@@ -54,7 +59,7 @@ const NavHeader = ({navOpened, navOpen}) => {
                   <div>
                     <Text fz="sm">Bob Handsome</Text>
                     <Text size="xs" color="dimmed">
-                      bob@handsome.inc
+                      {state.user.email}
                     </Text>
                   </div>
                   <Avatar size={40} color="blue" radius="xl">
