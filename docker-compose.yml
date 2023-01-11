@@ -1,0 +1,11 @@
+version: '3'
+
+services:
+  test-service:
+    build:
+      context: .
+      dockerfile: Backend/Auth-Service/DockerFile
+    ports:
+      - 8000:8000
+    volumes:
+      - .:/app
