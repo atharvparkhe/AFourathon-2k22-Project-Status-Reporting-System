@@ -17,7 +17,8 @@ urlpatterns = [
 	path('admin-forgot/', views.admin_forgot, name="forgot"),
 	path('admin-reset/', views.admin_reset, name="reset"),
 
-# Team Operations
-	
+# Employee Operations
+	path("add-employee-bulk/", views.add_employee_data, name="add-employee-bulk"),
+	path("add-employee/", views.add_employee, name="add-employee-single"),
 
 ]

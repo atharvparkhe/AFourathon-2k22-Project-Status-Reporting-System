@@ -19,3 +19,13 @@ class otpSerializer(serializers.Serializer):
 
 class emailSerializer(serializers.Serializer):
     email = serializers.EmailField(required = True)
+
+class FileModelSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = FileSavingModel
+        fields = ["file"]
+
+class add_employee_serializer(serializers.Serializer):
+    name = serializers.CharField(required = True)
+    email = serializers.EmailField(required = True)
+    phone = serializers.CharField(required = False)

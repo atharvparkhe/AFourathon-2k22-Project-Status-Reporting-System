@@ -10,6 +10,7 @@ export default function auth(state = initialState, action) {
     switch (action.type) {
         case LOGIN_SUCCESS:
             localStorage.setItem('token', action.payload.token.token);
+            localStorage.setItem('user', action.payload.email);
             return {
                 ...state,
                 token: action.payload.token.token,

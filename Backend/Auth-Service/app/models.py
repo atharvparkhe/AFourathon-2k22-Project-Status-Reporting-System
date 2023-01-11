@@ -51,3 +51,7 @@ class TeamMembersModel(BaseModel):
     member = models.ForeignKey(MemberModel, related_name="teammember_member", on_delete=models.CASCADE)
     def __str__(self):
         return self.team.team_name
+
+
+class FileSavingModel(models.Model):
+    file = models.FileField(upload_to="excel", max_length=100)
