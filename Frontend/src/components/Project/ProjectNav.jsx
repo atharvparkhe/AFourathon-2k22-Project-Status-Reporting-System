@@ -26,6 +26,8 @@ import {
 import { useProjectNavStyles } from "./styles";
 import { Outlet, Link } from "react-router-dom";
 
+import { logout } from "../../actions/auth";
+
 // styles
 const useStyles = createStyles((theme, _params, getRef) => {
   const icon = getRef("icon");
@@ -126,14 +128,14 @@ export default function ProjectNav({ navOpen }) {
            
            {/* logout */}
             <Stack>
-              <a
-                href="#"
+            <button
                 className={classesMain.link}
-                onClick={(event) => event.preventDefault()}
+                onClick={() => logout}
               >
                 <IconLogout className={classesMain.linkIcon} stroke={1.5} />
                 <span>Logout</span>
-              </a>
+              </button>
+
 
               {/* user avatar */}
               <UnstyledButton

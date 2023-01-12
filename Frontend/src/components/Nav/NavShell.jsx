@@ -23,6 +23,8 @@ import {
 } from "@tabler/icons";
 import { useNavStyles } from "./styles";
 import { Outlet, Link } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { logout } from "../../actions/auth";
 
 // styles
 const useStyles = createStyles((theme, _params, getRef) => {
@@ -79,6 +81,7 @@ const data = [
 ];
 
 export default function AppShellDemo({ navOpen }) {
+  const state = useSelector(state => state);
   const { classes, cx, theme } = useNavStyles();
   const [active, setActive] = useState("Billing");
   const { classes: classesMain } = useStyles();
@@ -114,14 +117,13 @@ export default function AppShellDemo({ navOpen }) {
             <Stack>{links}</Stack>
 
             <Stack>
-              <a
-                href="#"
+              <button
                 className={classesMain.link}
-                onClick={(event) => event.preventDefault()}
+                onClick={() => logout}
               >
                 <IconLogout className={classesMain.linkIcon} stroke={1.5} />
                 <span>Logout</span>
-              </a>
+              </button>
 
               {/* user avatar */}
               <UnstyledButton
@@ -135,7 +137,7 @@ export default function AppShellDemo({ navOpen }) {
                     <div>
                       <Text>Bob Handsome</Text>
                       <Text size="xs" color="dimmed">
-                        bob@handsome.inc
+                      {state.user.email}
                       </Text>
                     </div>
                   </Group>

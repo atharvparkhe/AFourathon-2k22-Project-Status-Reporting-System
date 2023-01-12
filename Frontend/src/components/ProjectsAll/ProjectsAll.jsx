@@ -57,6 +57,7 @@ const CARD_DATA = [
 ];
 
 const ProjectsAll = () => {
+  const BASE_URL = 'http://127.0.0.1:8000/'
   const { classes, theme } = useProjectStyles();
   const [openDrawer, setOpenDrawer] = useState(false);
   const [formType, setFormType] = useState({ type: null, projectId: null });

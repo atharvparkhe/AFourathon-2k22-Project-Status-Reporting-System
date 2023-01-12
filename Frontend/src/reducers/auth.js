@@ -22,7 +22,6 @@ export default function auth(state = initialState, action) {
         case LOGOUT_SUCCESS:
             localStorage.removeItem('token');
             localStorage.removeItem('user');
-
             return { ...initialState };
         case INVALID_TOKEN:
             return { ...initialState };
